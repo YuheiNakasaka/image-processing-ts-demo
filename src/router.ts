@@ -5,6 +5,7 @@ import Lenna from "@/views/Lenna.vue";
 import Nega from "@/views/Nega.vue";
 import GrayScale from "@/views/GrayScale.vue";
 import Thresholding from "@/views/Thresholding.vue";
+import Gaussian from "@/views/Gaussian.vue";
 
 Vue.use(Router);
 
@@ -36,6 +37,11 @@ export default new Router({
           path: "/thresholding",
           name: "thresholding",
           component: Thresholding
+        },
+        {
+          path: "/gaussian",
+          name: "gaussian",
+          component: Gaussian
         }
       ]
     }

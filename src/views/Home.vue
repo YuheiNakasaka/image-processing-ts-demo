@@ -7,6 +7,7 @@
         <router-link to="/nega">Nega</router-link>
         <router-link to="/grayscale">GrayScale</router-link>
         <router-link to="/thresholding">Thresholding</router-link>
+        <router-link to="/gaussian">Gaussian</router-link>
       </li>
     </ul>
     <router-view></router-view>

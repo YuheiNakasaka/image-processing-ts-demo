@@ -1,5 +1,5 @@
 <template>
-  <div class="lennna">
+  <div>
     <canvas class="main_canvas"></canvas>
   </div>
 </template>

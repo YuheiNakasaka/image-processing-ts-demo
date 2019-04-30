@@ -1,4 +1,4 @@
-interface CanvasResponse {
+export interface CanvasResponse {
   canvas: HTMLCanvasElement;
   context: CanvasRenderingContext2D;
   imgData: ImageData;
