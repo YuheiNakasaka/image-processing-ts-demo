@@ -1,6 +1,8 @@
 import Vue from "vue";
 import Router from "vue-router";
-import Home from "./views/Home.vue";
+import Home from "@/views/Home.vue";
+import Lenna from "@/views/Lenna.vue";
+import Nega from "@/views/Nega.vue";
 
 Vue.use(Router);
 
@@ -11,7 +13,19 @@ export default new Router({
     {
       path: "/",
       name: "home",
-      component: Home
+      component: Home,
+      children: [
+        {
+          path: "/lenna",
+          name: "lenna",
+          component: Lenna
+        },
+        {
+          path: "/nega",
+          name: "nega",
+          component: Nega
+        }
+      ]
     }
   ]
 });
