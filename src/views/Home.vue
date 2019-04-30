@@ -5,6 +5,7 @@
         <router-link to="/">HOME</router-link>
         <router-link to="/lenna">Lenna</router-link>
         <router-link to="/nega">Nega</router-link>
+        <router-link to="/grayscale">GrayScale</router-link>
       </li>
     </ul>
     <router-view></router-view>

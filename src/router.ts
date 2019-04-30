@@ -3,6 +3,7 @@ import Router from "vue-router";
 import Home from "@/views/Home.vue";
 import Lenna from "@/views/Lenna.vue";
 import Nega from "@/views/Nega.vue";
+import GrayScale from "@/views/GrayScale.vue";
 
 Vue.use(Router);
 
@@ -24,6 +25,11 @@ export default new Router({
           path: "/nega",
           name: "nega",
           component: Nega
+        },
+        {
+          path: "/grayscale",
+          name: "grayscale",
+          component: GrayScale
         }
       ]
     }
