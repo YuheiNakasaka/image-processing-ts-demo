@@ -27,14 +27,12 @@ class Num {
     stride: number,
     colorPos: number
   ): number {
-    const kCol = kernel[0].length;
-    const kRow = kernel.length;
     let pixel = 0;
-    for (let i = -1; i < kRow - 1; i++) {
-      for (let j = 0; j < kCol; j++) {
-        const base = ((y + i) * img.width + x) * stride;
-        pixel += !isNaN(img.pixels[base + colorPos + stride * i] * kernel[i + 1][j])
-          ? img.pixels[base + colorPos + stride * i] * kernel[i + 1][j]
+    for (let row = -1; row < kernel.length - 1; row++) {
+      for (let col = 0; col < kernel[0].length; col++) {
+        const base = ((y + row) * img.width + x) * stride;
+        pixel += !isNaN(img.pixels[base + colorPos + stride * row] * kernel[row + 1][col])
+          ? img.pixels[base + colorPos + stride * row] * kernel[row + 1][col]
           : 0;
       }
     }
