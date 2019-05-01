@@ -21,16 +21,8 @@ export default class GrayScale extends Vue {
       for (let x = 0; x < resp.width; x++) {
         const base = (y * resp.width + x) * 4;
         const medColor =
-          (Math.max(
-            resp.pixels[base + 0],
-            resp.pixels[base + 1],
-            resp.pixels[base + 2]
-          ) +
-            Math.min(
-              resp.pixels[base + 0],
-              resp.pixels[base + 1],
-              resp.pixels[base + 2]
-            )) /
+          (Math.max(resp.pixels[base + 0], resp.pixels[base + 1], resp.pixels[base + 2]) +
+            Math.min(resp.pixels[base + 0], resp.pixels[base + 1], resp.pixels[base + 2])) /
           2;
         resp.pixels[base + 0] = medColor;
         resp.pixels[base + 1] = medColor;

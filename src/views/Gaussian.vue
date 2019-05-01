@@ -19,11 +19,7 @@ export default class Gaussian extends Vue {
     if (!resp) return;
 
     // kernel
-    const kernel = [
-      [21 / 256, 31 / 256, 21 / 256],
-      [31 / 256, 48 / 256, 31 / 256],
-      [21 / 256, 31 / 256, 21 / 256]
-    ];
+    const kernel = [[21 / 256, 31 / 256, 21 / 256], [31 / 256, 48 / 256, 31 / 256], [21 / 256, 31 / 256, 21 / 256]];
 
     // convolution
     const num = new Num();
