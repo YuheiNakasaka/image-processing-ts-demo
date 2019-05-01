@@ -28,7 +28,8 @@ class Num {
     colorPos: number
   ): number {
     let pixel = 0;
-    for (let row = -1; row < kernel.length - 1; row++) {
+    let abs = Math.floor(kernel.length / 2);
+    for (let row = -abs; row < kernel.length - abs; row++) {
       for (let col = 0; col < kernel[0].length; col++) {
         const base = ((y + row) * img.width + x) * stride;
         pixel += !isNaN(img.pixels[base + colorPos + stride * row] * kernel[row + 1][col])
