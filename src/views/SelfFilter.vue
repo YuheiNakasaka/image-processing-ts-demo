@@ -27,7 +27,7 @@ import Num from "@/libs/num";
   components: {}
 })
 export default class SelfFilter extends Vue {
-  public filterSize!: number;
+  public filterSize: number = 3;
   public fields!: number[];
   public matrixWidth!: number;
   public loading: boolean = false;
@@ -39,7 +39,6 @@ export default class SelfFilter extends Vue {
   }
 
   beforeMount() {
-    this.filterSize = 3;
     this.fields = [-1, -1, -1, -1, 9, -1, -1, -1, -1];
     this.matrixWidth = parseInt(`${this.filterSize}`) * 100 + parseInt(`${this.filterSize}`) * 6;
   }

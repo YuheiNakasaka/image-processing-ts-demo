@@ -32,8 +32,8 @@ class Num {
     for (let row = -abs; row < kernel.length - abs; row++) {
       for (let col = 0; col < kernel[0].length; col++) {
         const base = ((y + row) * img.width + x) * stride;
-        pixel += !isNaN(img.pixels[base + colorPos + stride * row] * kernel[row + 1][col])
-          ? img.pixels[base + colorPos + stride * row] * kernel[row + 1][col]
+        pixel += !isNaN(img.pixels[base + colorPos + stride * row] * kernel[row + abs][col])
+          ? img.pixels[base + colorPos + stride * row] * kernel[row + abs][col]
           : 0;
       }
     }
