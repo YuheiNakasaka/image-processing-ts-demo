@@ -18,6 +18,7 @@ class Canvas {
       img.crossOrigin = "Anonymous";
       img.src = imgUrl != "" ? imgUrl : "./lenna.png";
       img.onload = () => {
+        context.clearRect(0, 0, img.width, img.height);
         canvas.width = img.width;
         canvas.height = img.height;
         context.drawImage(img, 0, 0);
