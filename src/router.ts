@@ -7,6 +7,7 @@ import GrayScale from "@/views/GrayScale.vue";
 import Thresholding from "@/views/Thresholding.vue";
 import Gaussian from "@/views/Gaussian.vue";
 import Laplacian from "@/views/Laplacian.vue";
+import Sharping from "@/views/Sharping.vue";
 
 Vue.use(Router);
 
@@ -48,6 +49,11 @@ export default new Router({
           path: "/laplacian",
           name: "laplacian",
           component: Laplacian
+        },
+        {
+          path: "/sharping",
+          name: "sharping",
+          component: Sharping
         }
       ]
     }

@@ -5,53 +5,40 @@ class Num {
     // Create empty image
     let resultImageData = img.context.createImageData(img.width, img.height);
 
-    const stride = 4;
-
+    const stride = 4; // RGBA
     for (let y = 0; y < img.height; y++) {
       for (let x = 0; x < img.width; x++) {
-        const top = ((y - 1) * img.width + x) * stride;
         const base = (y * img.width + x) * stride;
-        const bottom = ((y + 1) * img.width + x) * stride;
-
-        let pixel = 0;
-        // top rows
-        pixel += !isNaN(img.pixels[top + 1 - stride] * kernel[0][0])
-          ? img.pixels[top + 1 - stride] * kernel[0][0]
-          : 0;
-        pixel += !isNaN(img.pixels[top + 1] * kernel[0][1])
-          ? img.pixels[top + 1] * kernel[0][1]
-          : 0;
-        pixel += !isNaN(img.pixels[top + 1 + stride] * kernel[0][2])
-          ? img.pixels[top + 1 + stride] * kernel[0][2]
-          : 0;
-        // center row
-        pixel += !isNaN(img.pixels[base + 1 - stride] * kernel[1][0])
-          ? img.pixels[base + 1 - stride] * kernel[1][0]
-          : 0;
-        pixel += !isNaN(img.pixels[base + 1] * kernel[1][1])
-          ? img.pixels[base + 1] * kernel[1][1]
-          : 0;
-        pixel += !isNaN(img.pixels[base + 1 + stride] * kernel[1][2])
-          ? img.pixels[base + 1 + stride] * kernel[1][2]
-          : 0;
-        // bottom row
-        pixel += !isNaN(img.pixels[bottom + 1 - stride] * kernel[2][0])
-          ? img.pixels[bottom + 1 - stride] * kernel[2][0]
-          : 0;
-        pixel += !isNaN(img.pixels[bottom + 1] * kernel[2][1])
-          ? img.pixels[bottom + 1] * kernel[2][1]
-          : 0;
-        pixel += !isNaN(img.pixels[bottom + 1 + stride] * kernel[2][2])
-          ? img.pixels[bottom + 1 + stride] * kernel[2][2]
-          : 0;
-
-        resultImageData.data[base + 0] = pixel;
-        resultImageData.data[base + 1] = pixel;
-        resultImageData.data[base + 2] = pixel;
+        // kernel適用 to RGB
+        resultImageData.data[base + 0] = this.patchKernel(img, x, y, kernel, stride, 0);
+        resultImageData.data[base + 1] = this.patchKernel(img, x, y, kernel, stride, 1);
+        resultImageData.data[base + 2] = this.patchKernel(img, x, y, kernel, stride, 2);
         resultImageData.data[base + 3] = 255;
       }
     }
     return resultImageData;
+  }
+
+  private patchKernel(
+    img: CanvasResponse,
+    x: number,
+    y: number,
+    kernel: number[][],
+    stride: number,
+    colorPos: number
+  ): number {
+    const kCol = kernel[0].length;
+    const kRow = kernel.length;
+    let pixel = 0;
+    for (let i = -1; i < kRow - 1; i++) {
+      for (let j = 0; j < kCol; j++) {
+        const base = ((y + i) * img.width + x) * stride;
+        pixel += !isNaN(img.pixels[base + colorPos + stride * i] * kernel[i + 1][j])
+          ? img.pixels[base + colorPos + stride * i] * kernel[i + 1][j]
+          : 0;
+      }
+    }
+    return pixel;
   }
 }
 

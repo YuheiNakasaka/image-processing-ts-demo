@@ -9,6 +9,7 @@
         <router-link to="/thresholding">Thresholding</router-link>
         <router-link to="/gaussian">Gaussian</router-link>
         <router-link to="/laplacian">Laplacian</router-link>
+        <router-link to="/sharping">Sharping</router-link>
       </li>
     </ul>
     <router-view></router-view>

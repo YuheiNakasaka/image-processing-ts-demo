@@ -9,9 +9,7 @@ export interface CanvasResponse {
 
 class Canvas {
   lennner(selectorName: string, imgUrl = ""): Promise<CanvasResponse> | null {
-    const canvas: HTMLCanvasElement | null = document.querySelector(
-      selectorName
-    );
+    const canvas: HTMLCanvasElement | null = document.querySelector(selectorName);
     if (!canvas) return null;
     const context = canvas.getContext("2d");
     if (!context) return null;
