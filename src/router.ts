@@ -10,6 +10,7 @@ import Laplacian from "@/views/Laplacian.vue";
 import Sharping from "@/views/Sharping.vue";
 import SelfFilter from "@/views/SelfFilter.vue";
 import Bilateral from "@/views/Bilateral.vue";
+import Mosaic from "@/views/Mosaic.vue";
 
 Vue.use(Router);
 
@@ -66,6 +67,11 @@ export default new Router({
           path: "/bilateral",
           name: "bilateral",
           component: Bilateral
+        },
+        {
+          path: "/mosaic",
+          name: "mosaic",
+          component: Mosaic
         }
       ]
     }
