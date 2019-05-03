@@ -1,32 +1,40 @@
 <template>
   <div>
     <canvas class="main_canvas"></canvas>
+    <label>K: </label><input type="number" minlength="1" v-model="kValue" />
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue, Watch } from "vue-property-decorator";
 import MyCanvas from "@/libs/canvas";
+import MosaicFilter from "@/libs/mosaic";
 
 @Component({
   components: {}
 })
 export default class Mosaic extends Vue {
+  public kValue: number = 5;
+
+  @Watch("kValue")
+  async onChange() {
+    const canvas = new MyCanvas();
+    const resp = await canvas.lennner(".main_canvas");
+    if (!resp) return;
+
+    const mosaicFilter = new MosaicFilter(parseInt(`${this.kValue}`));
+    const imgData = mosaicFilter.get(resp.imgData, resp.width, resp.height);
+    resp.context.putImageData(imgData, 0, 0);
+  }
+
   async mounted() {
     const canvas = new MyCanvas();
     const resp = await canvas.lennner(".main_canvas");
     if (!resp) return;
 
-    for (let y = 0; y < resp.height; y++) {
-      for (let x = 0; x < resp.width; x++) {
-        const base = (y * resp.width + x) * 4;
-        resp.pixels[base + 0] = resp.pixels[base + 0];
-        resp.pixels[base + 1] = resp.pixels[base + 1];
-        resp.pixels[base + 2] = resp.pixels[base + 2];
-        resp.pixels[base + 3] = 255;
-      }
-    }
-    resp.context.putImageData(resp.imgData, 0, 0);
+    const mosaicFilter = new MosaicFilter(parseInt(`${this.kValue}`));
+    const imgData = mosaicFilter.get(resp.imgData, resp.width, resp.height);
+    resp.context.putImageData(imgData, 0, 0);
   }
 }
 </script>
