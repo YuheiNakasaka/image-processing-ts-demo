@@ -8,7 +8,7 @@
 <script lang="ts">
 import { Component, Vue, Watch } from "vue-property-decorator";
 import MyCanvas from "@/libs/canvas";
-import MosaicFilter from "@/libs/mosaic";
+import MosaicFilter from "@/libs/mosaic_filter";
 
 @Component({
   components: {}
@@ -23,7 +23,7 @@ export default class Mosaic extends Vue {
     if (!resp) return;
 
     const mosaicFilter = new MosaicFilter(parseInt(`${this.kValue}`));
-    const imgData = mosaicFilter.get(resp.imgData, resp.width, resp.height);
+    const imgData = mosaicFilter.apply(resp.imgData, resp.width, resp.height);
     resp.context.putImageData(imgData, 0, 0);
   }
 
@@ -32,8 +32,8 @@ export default class Mosaic extends Vue {
     const resp = await canvas.lennner(".main_canvas");
     if (!resp) return;
 
-    const mosaicFilter = new MosaicFilter(parseInt(`${this.kValue}`));
-    const imgData = mosaicFilter.get(resp.imgData, resp.width, resp.height);
+    const filter = new MosaicFilter(parseInt(`${this.kValue}`));
+    const imgData = filter.apply(resp.imgData, resp.width, resp.height);
     resp.context.putImageData(imgData, 0, 0);
   }
 }

@@ -13,7 +13,7 @@ class BilateralFilter {
     this.gaussian = new GaussianFilter(this.sigma, this.w, this.h);
   }
 
-  get(imgData: ImageData, imgWidth: number, imgHeight: number): ImageData {
+  apply(imgData: ImageData, imgWidth: number, imgHeight: number): ImageData {
     // dankogai gauss color weight
     // http://blog.livedoor.jp/dankogai/archives/51822270.html
     const sigma8bit = 2.04045;

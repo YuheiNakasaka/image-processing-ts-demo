@@ -23,7 +23,7 @@ export default class Bilateral extends Vue {
     if (!resp) return;
 
     const bilateralFilter = new BilateralFilter(this.kValue, 7, 7);
-    const imgData = bilateralFilter.get(resp.imgData, resp.width, resp.height);
+    const imgData = bilateralFilter.apply(resp.imgData, resp.width, resp.height);
 
     resp.context.putImageData(imgData, 0, 0);
   }
@@ -33,8 +33,8 @@ export default class Bilateral extends Vue {
     const resp = await canvas.lennner(".main_canvas");
     if (!resp) return;
 
-    const bilateralFilter = new BilateralFilter(this.kValue, 7, 7);
-    const imgData = bilateralFilter.get(resp.imgData, resp.width, resp.height);
+    const filter = new BilateralFilter(this.kValue, 7, 7);
+    const imgData = filter.apply(resp.imgData, resp.width, resp.height);
 
     resp.context.putImageData(imgData, 0, 0);
   }

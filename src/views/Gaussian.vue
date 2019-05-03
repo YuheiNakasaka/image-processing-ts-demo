@@ -7,7 +7,7 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import MyCanvas from "@/libs/canvas";
-import Num from "@/libs/num";
+import GaussianFilter from "@/libs/gaussian_filter";
 
 @Component({
   components: {}
@@ -18,12 +18,9 @@ export default class Gaussian extends Vue {
     const resp = await canvas.lennner(".main_canvas");
     if (!resp) return;
 
-    // kernel
-    const kernel = [[21 / 256, 31 / 256, 21 / 256], [31 / 256, 48 / 256, 31 / 256], [21 / 256, 31 / 256, 21 / 256]];
-
-    // convolution
-    const num = new Num();
-    resp.context.putImageData(num.convolve2d(resp, kernel), 0, 0);
+    const filter = new GaussianFilter();
+    const imgData = filter.apply(resp.imgData, resp.width, resp.height);
+    resp.context.putImageData(imgData, 0, 0);
   }
 }
 </script>

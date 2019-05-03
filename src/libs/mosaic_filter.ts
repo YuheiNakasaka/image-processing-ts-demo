@@ -1,10 +1,10 @@
-class Mosaic {
+class MosaicFilter {
   public kernelSize: number;
   constructor(kernelSize = 3) {
     this.kernelSize = kernelSize;
   }
 
-  get(imgData: ImageData, imgWidth: number, imgHeight: number): ImageData {
+  apply(imgData: ImageData, imgWidth: number, imgHeight: number): ImageData {
     const cw = Math.floor(this.kernelSize / 2);
     for (let y = 0; y < imgHeight; y += this.kernelSize) {
       for (let x = 0; x < imgHeight; x += this.kernelSize) {
@@ -42,4 +42,4 @@ class Mosaic {
   }
 }
 
-export default Mosaic;
+export default MosaicFilter;
