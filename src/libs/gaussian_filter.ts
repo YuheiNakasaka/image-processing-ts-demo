@@ -26,6 +26,11 @@ class GaussianFilter {
   }
 
   apply(imgData: ImageData, imgWidth: number, imgHeight: number): ImageData {
+    const canvas = document.createElement("canvas");
+    const context = canvas.getContext("2d");
+    if (!context) return imgData;
+    let resultImageData = context.createImageData(imgData.width, imgData.height);
+
     const cw = Math.floor(this.w / 2);
     const ch = Math.floor(this.h / 2);
     for (let y = 0; y < imgHeight; y++) {
@@ -34,7 +39,6 @@ class GaussianFilter {
         let rSum = 0;
         let gSum = 0;
         let bSum = 0;
-        let wwww = 0;
         for (let i = -ch; i <= ch; i++) {
           for (let j = -cw; j <= cw; j++) {
             const idx2 = ((y + i) * imgWidth + (x + j)) * 4;
@@ -43,19 +47,15 @@ class GaussianFilter {
               gSum += imgData.data[idx2 + 1] * this.kernel[(i + ch) * this.w + (j + cw)];
               bSum += imgData.data[idx2 + 2] * this.kernel[(i + ch) * this.w + (j + cw)];
             }
-            // if (y === 5 && x === 5) {
-            //   wwww += this.kernel[(i + ch) * this.w + (j + cw)];
-            //   console.log(wwww);
-            // }
           }
         }
-        imgData.data[idx] = rSum;
-        imgData.data[idx + 1] = gSum;
-        imgData.data[idx + 2] = bSum;
-        imgData.data[idx + 3] = 255;
+        resultImageData.data[idx] = rSum;
+        resultImageData.data[idx + 1] = gSum;
+        resultImageData.data[idx + 2] = bSum;
+        resultImageData.data[idx + 3] = 255;
       }
     }
-    return imgData;
+    return resultImageData;
   }
 }
 

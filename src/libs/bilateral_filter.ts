@@ -14,6 +14,11 @@ class BilateralFilter {
   }
 
   apply(imgData: ImageData, imgWidth: number, imgHeight: number): ImageData {
+    const canvas = document.createElement("canvas");
+    const context = canvas.getContext("2d");
+    if (!context) return imgData;
+    let resultImageData = context.createImageData(imgData.width, imgData.height);
+
     // dankogai gauss color weight
     // http://blog.livedoor.jp/dankogai/archives/51822270.html
     const sigma8bit = 2.04045;
@@ -53,13 +58,13 @@ class BilateralFilter {
           }
         }
 
-        imgData.data[i] = rgb[0] / wsum;
-        imgData.data[i + 1] = rgb[1] / wsum;
-        imgData.data[i + 2] = rgb[2] / wsum;
-        imgData.data[i + 3] = 255;
+        resultImageData.data[i] = rgb[0] / wsum;
+        resultImageData.data[i + 1] = rgb[1] / wsum;
+        resultImageData.data[i + 2] = rgb[2] / wsum;
+        resultImageData.data[i + 3] = 255;
       }
     }
-    return imgData;
+    return resultImageData;
   }
 }
 

@@ -7,6 +7,7 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import MyCanvas from "@/libs/canvas";
+import LaplacianFilter from "@/libs/laplacian_filter";
 import Num from "@/libs/num";
 
 @Component({
@@ -18,12 +19,9 @@ export default class Laplacian extends Vue {
     const resp = await canvas.lennner(".main_canvas");
     if (!resp) return;
 
-    // kernel
-    const kernel = [[0, -1, 0], [-1, 4, -1], [0, -1, 0]];
-
-    // convolution
-    const num = new Num();
-    resp.context.putImageData(num.convolve2d(resp, kernel), 0, 0);
+    const filter = new LaplacianFilter();
+    const imgData = filter.apply(resp.imgData, resp.width, resp.height);
+    resp.context.putImageData(imgData, 0, 0);
   }
 }
 </script>
