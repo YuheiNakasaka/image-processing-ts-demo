@@ -7,6 +7,7 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import MyCanvas from "@/libs/canvas";
+import NegaFilter from "@/libs/nega_filter";
 
 @Component({
   components: {}
@@ -17,16 +18,9 @@ export default class Nega extends Vue {
     const resp = await canvas.lennner(".main_canvas");
     if (!resp) return;
 
-    for (let y = 0; y < resp.height; y++) {
-      for (let x = 0; x < resp.width; x++) {
-        const base = (y * resp.width + x) * 4;
-        resp.pixels[base + 0] = 255 - resp.pixels[base + 0];
-        resp.pixels[base + 1] = 255 - resp.pixels[base + 1];
-        resp.pixels[base + 2] = 255 - resp.pixels[base + 2];
-        resp.pixels[base + 3] = 255;
-      }
-    }
-    resp.context.putImageData(resp.imgData, 0, 0);
+    const filter = new NegaFilter();
+    const imgData = filter.apply(resp.imgData, resp.width, resp.height);
+    resp.context.putImageData(imgData, 0, 0);
   }
 }
 </script>
