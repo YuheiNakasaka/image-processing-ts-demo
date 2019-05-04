@@ -7,6 +7,7 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import MyCanvas from "@/libs/canvas";
+import ThresholdFilter from "@/libs/threshold_filter";
 
 @Component({
   components: {}
@@ -17,28 +18,9 @@ export default class Thresholding extends Vue {
     const resp = await canvas.lennner(".main_canvas");
     if (!resp) return;
 
-    // モード法
-    let threshold = 0;
-    let i = 0;
-    for (let y = 0; y < resp.height; y++) {
-      for (let x = 0; x < resp.width; x++) {
-        const base = (y * resp.width + x) * 4;
-        threshold += resp.pixels[base + 1];
-        i++;
-      }
-    }
-    threshold = threshold / (resp.height * resp.width);
-
-    for (let y = 0; y < resp.height; y++) {
-      for (let x = 0; x < resp.width; x++) {
-        const base = (y * resp.width + x) * 4;
-        resp.pixels[base + 0] = resp.pixels[base + 1] > threshold ? 255 : 0;
-        resp.pixels[base + 1] = resp.pixels[base + 1] > threshold ? 255 : 0;
-        resp.pixels[base + 2] = resp.pixels[base + 1] > threshold ? 255 : 0;
-        resp.pixels[base + 3] = 255;
-      }
-    }
-    resp.context.putImageData(resp.imgData, 0, 0);
+    const filter = new ThresholdFilter();
+    const imgData = filter.apply(resp.imgData, resp.width, resp.height);
+    resp.context.putImageData(imgData, 0, 0);
   }
 }
 </script>
