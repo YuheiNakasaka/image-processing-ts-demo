@@ -11,6 +11,7 @@
         <router-link to="/sharping">Sharping</router-link>
         <router-link to="/bilateral">Bilateral</router-link>
         <router-link to="/mosaic">Mosaic</router-link>
+        <router-link to="/pixel-art">PixelArt</router-link>
       </li>
     </ul>
     <div class="main">

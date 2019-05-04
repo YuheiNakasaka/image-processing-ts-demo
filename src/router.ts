@@ -9,6 +9,7 @@ import Laplacian from "@/views/Laplacian.vue";
 import Sharping from "@/views/Sharping.vue";
 import Bilateral from "@/views/Bilateral.vue";
 import Mosaic from "@/views/Mosaic.vue";
+import PixelArt from "@/views/PixelArt.vue";
 
 Vue.use(Router);
 
@@ -60,6 +61,11 @@ export default new Router({
           path: "/mosaic",
           name: "mosaic",
           component: Mosaic
+        },
+        {
+          path: "/pixel-art",
+          name: "pixel-art",
+          component: PixelArt
         }
       ]
     }
