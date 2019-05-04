@@ -7,7 +7,6 @@ import Thresholding from "@/views/Thresholding.vue";
 import Gaussian from "@/views/Gaussian.vue";
 import Laplacian from "@/views/Laplacian.vue";
 import Sharping from "@/views/Sharping.vue";
-import SelfFilter from "@/views/SelfFilter.vue";
 import Bilateral from "@/views/Bilateral.vue";
 import Mosaic from "@/views/Mosaic.vue";
 
@@ -51,11 +50,6 @@ export default new Router({
           path: "/sharping",
           name: "sharping",
           component: Sharping
-        },
-        {
-          path: "/self-filter",
-          name: "self-filter",
-          component: SelfFilter
         },
         {
           path: "/bilateral",

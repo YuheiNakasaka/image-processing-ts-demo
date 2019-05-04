@@ -10,7 +10,6 @@
         <router-link to="/laplacian">Laplacian</router-link>
         <router-link to="/sharping">Sharping</router-link>
         <router-link to="/bilateral">Bilateral</router-link>
-        <router-link to="/self-filter">Self-Filter</router-link>
         <router-link to="/mosaic">Mosaic</router-link>
       </li>
     </ul>
