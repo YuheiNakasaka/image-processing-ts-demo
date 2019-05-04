@@ -8,7 +8,6 @@
 import { Component, Vue } from "vue-property-decorator";
 import MyCanvas from "@/libs/canvas";
 import LaplacianFilter from "@/libs/laplacian_filter";
-import Num from "@/libs/num";
 
 @Component({
   components: {}

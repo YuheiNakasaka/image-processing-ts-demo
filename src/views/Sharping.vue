@@ -9,7 +9,7 @@
 import { Component, Vue, Watch } from "vue-property-decorator";
 import MyCanvas from "@/libs/canvas";
 import { CanvasResponse } from "@/libs/canvas";
-import Num from "@/libs/num";
+import SharpingFilter from "@/libs/sharping_filter";
 
 @Component({
   components: {}
@@ -20,24 +20,22 @@ export default class Sharping extends Vue {
   @Watch("kValue")
   async onChange() {
     const canvas = new MyCanvas();
-    const img = await canvas.lennner(".main_canvas");
-    if (!img) return;
-    const num = new Num();
-    const kernel = this.getKernel(this.kValue);
-    img.context.putImageData(num.convolve2d(img, kernel), 0, 0);
+    const resp = await canvas.lennner(".main_canvas");
+    if (!resp) return;
+
+    const filter = new SharpingFilter(this.kValue, 3);
+    const imgData = filter.apply(resp.imgData, resp.width, resp.height);
+    resp.context.putImageData(imgData, 0, 0);
   }
 
   async mounted() {
     const canvas = new MyCanvas();
-    const img = await canvas.lennner(".main_canvas");
-    if (!img) return;
-    const num = new Num();
-    const kernel = this.getKernel(this.kValue);
-    img.context.putImageData(num.convolve2d(img, kernel), 0, 0);
-  }
+    const resp = await canvas.lennner(".main_canvas");
+    if (!resp) return;
 
-  getKernel(k: number): number[][] {
-    return [[-k / 9, -k / 9, -k / 9], [-k / 9, 1 + (k * 8) / 9, -k / 9], [-k / 9, -k / 9, -k / 9]];
+    const filter = new SharpingFilter(this.kValue, 3);
+    const imgData = filter.apply(resp.imgData, resp.width, resp.height);
+    resp.context.putImageData(imgData, 0, 0);
   }
 }
 </script>
