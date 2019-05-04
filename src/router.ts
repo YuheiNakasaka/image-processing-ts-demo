@@ -1,7 +1,6 @@
 import Vue from "vue";
 import Router from "vue-router";
 import Home from "@/views/Home.vue";
-import Lenna from "@/views/Lenna.vue";
 import Nega from "@/views/Nega.vue";
 import GrayScale from "@/views/GrayScale.vue";
 import Thresholding from "@/views/Thresholding.vue";
@@ -23,11 +22,6 @@ export default new Router({
       name: "home",
       component: Home,
       children: [
-        {
-          path: "/lenna",
-          name: "lenna",
-          component: Lenna
-        },
         {
           path: "/nega",
           name: "nega",

@@ -117,4 +117,7 @@ a {
   box-shadow: none;
   outline: none;
 }
+canvas {
+  display: inline-block;
+}
 </style>

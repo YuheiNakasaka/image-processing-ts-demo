@@ -3,7 +3,6 @@
     <ul class="nav">
       <li>
         <router-link to="/">HOME</router-link>
-        <router-link to="/lenna">Lenna</router-link>
         <router-link to="/nega">Nega</router-link>
         <router-link to="/grayscale">GrayScale</router-link>
         <router-link to="/thresholding">Thresholding</router-link>
@@ -15,18 +14,37 @@
         <router-link to="/mosaic">Mosaic</router-link>
       </li>
     </ul>
-    <router-view></router-view>
+    <div class="main">
+      <canvas class="sample-canvas"></canvas>
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import MyCanvas from "@/libs/canvas";
 
 @Component({
   components: {}
 })
 export default class Home extends Vue {
-  mounted() {}
+  async mounted() {
+    const canvas = new MyCanvas();
+    const resp = await canvas.lennner(".sample-canvas");
+    if (!resp) return;
+
+    for (let y = 0; y < resp.height; y++) {
+      for (let x = 0; x < resp.width; x++) {
+        const base = (y * resp.width + x) * 4;
+        resp.pixels[base + 0] = resp.pixels[base + 0];
+        resp.pixels[base + 1] = resp.pixels[base + 1];
+        resp.pixels[base + 2] = resp.pixels[base + 2];
+        resp.pixels[base + 3] = 255;
+      }
+    }
+    resp.context.putImageData(resp.imgData, 0, 0);
+  }
 }
 </script>
 
@@ -39,6 +57,11 @@ export default class Home extends Vue {
       padding: 5px;
       display: inline-block;
     }
+  }
+  .main {
+    width: 500px;
+    margin: 0 auto;
+    text-align: center;
   }
 }
 </style>

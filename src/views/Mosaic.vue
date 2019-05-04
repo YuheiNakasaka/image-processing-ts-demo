@@ -1,7 +1,7 @@
 <template>
   <div>
     <canvas class="main_canvas"></canvas>
-    <label>K: </label><input type="number" minlength="1" v-model="kValue" />
+    <div><label>K: </label><input type="number" minlength="1" v-model="kValue" /></div>
   </div>
 </template>
 

@@ -1,7 +1,7 @@
 <template>
   <div class="sharping">
     <canvas class="main_canvas"></canvas>
-    <label>K: </label><input type="number" minlength="1" v-model="kValue" />
+    <div><label>K: </label><input type="number" minlength="1" v-model="kValue" /></div>
   </div>
 </template>
 
@@ -40,10 +40,4 @@ export default class Sharping extends Vue {
 }
 </script>
 
-<style lang="scss" scoped>
-.sharping {
-  canvas {
-    margin: 0 0 10px 0;
-  }
-}
-</style>
+<style lang="scss" scoped></style>

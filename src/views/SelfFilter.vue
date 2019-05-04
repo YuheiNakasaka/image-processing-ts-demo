@@ -1,18 +1,20 @@
 <template>
   <div class="self-filter">
     <canvas class="main_canvas"></canvas>
-    <p v-show="loading">Proccessing..</p>
-    <label>filter size: </label><input type="number" min="3" step="2" v-model="filterSize" />
-    <div class="matrixes" :style="`width: ${matrixWidth}px`">
-      <input
-        type="number"
-        name="matrix[]"
-        class="column"
-        v-for="(i, j) in fields"
-        :key="`${i}_${j}`"
-        :value="i"
-        @change="onMatrixChange"
-      />
+    <div>
+      <p v-show="loading">Proccessing..</p>
+      <label>filter size: </label><input type="number" min="3" step="2" v-model="filterSize" />
+      <div class="matrixes" :style="`width: ${matrixWidth}px`">
+        <input
+          type="number"
+          name="matrix[]"
+          class="column"
+          v-for="(i, j) in fields"
+          :key="`${i}_${j}`"
+          :value="i"
+          @change="onMatrixChange"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -84,6 +86,7 @@ export default class SelfFilter extends Vue {
     margin: 0 0 10px 0;
   }
   .matrixes {
+    display: inline-block;
     margin: 10px 0 0 0;
     input {
       width: 100px;
