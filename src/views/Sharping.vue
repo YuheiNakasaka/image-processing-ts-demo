@@ -23,7 +23,7 @@ export default class Sharping extends Vue {
     const resp = await canvas.lennner(".main_canvas");
     if (!resp) return;
 
-    const filter = new SharpingFilter(this.kValue, 3);
+    const filter = new SharpingFilter(parseInt(`${this.kValue}`), 3);
     const imgData = filter.apply(resp.imgData, resp.width, resp.height);
     resp.context.putImageData(imgData, 0, 0);
   }
@@ -33,7 +33,7 @@ export default class Sharping extends Vue {
     const resp = await canvas.lennner(".main_canvas");
     if (!resp) return;
 
-    const filter = new SharpingFilter(this.kValue, 3);
+    const filter = new SharpingFilter(parseInt(`${this.kValue}`), 3);
     const imgData = filter.apply(resp.imgData, resp.width, resp.height);
     resp.context.putImageData(imgData, 0, 0);
   }

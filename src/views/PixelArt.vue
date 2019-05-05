@@ -3,6 +3,7 @@
     <canvas class="main_canvas"></canvas>
     <div><label>Frame: </label><input type="number" minlength="1" maxlength="50" v-model="frame" /></div>
     <div><label>Color: </label><input type="number" minlength="1" maxlength="255" v-model="color" /></div>
+    <div><label>Bilateral: </label><input type="number" minlength="0" maxlength="1" v-model="bilateral" /></div>
     <div v-show="!runnable"><span>[Warn] Frame has mod.</span></div>
   </div>
 </template>
@@ -11,6 +12,7 @@
 import { Component, Vue, Watch } from "vue-property-decorator";
 import MyCanvas from "@/libs/canvas";
 import PixelArtFilter from "@/libs/pixel_art_filter";
+import BilateralFilter from "@/libs/bilateral_filter";
 
 @Component({
   components: {}
@@ -21,6 +23,7 @@ export default class PixelArt extends Vue {
   public validFrames: number[] = [];
   public runnable: boolean = true;
   public canvas!: MyCanvas;
+  public bilateral: number = 0;
 
   @Watch("frame")
   onFrameChange() {
@@ -29,6 +32,11 @@ export default class PixelArt extends Vue {
 
   @Watch("color")
   onColorChange() {
+    this.renderImage();
+  }
+
+  @Watch("bilateral")
+  onBilateralChange() {
     this.renderImage();
   }
 
@@ -43,8 +51,15 @@ export default class PixelArt extends Vue {
     const color = parseInt(`${this.color}`);
     if (!resp || !this.validate(resp.width)) return;
 
-    const filter = new PixelArtFilter(frame, color);
-    const imgData = filter.apply(resp.imgData);
+    let midImgData = resp.imgData;
+    if (this.bilateral === 1) {
+      const bfilter = new BilateralFilter(80, 7, 7);
+      midImgData = bfilter.apply(resp.imgData, resp.width, resp.height);
+      resp.context.putImageData(midImgData, 0, 0);
+    }
+
+    const pfilter = new PixelArtFilter(frame, color);
+    const imgData = pfilter.apply(midImgData);
     resp.context.putImageData(imgData, 0, 0);
   }
 
