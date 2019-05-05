@@ -4,9 +4,9 @@ class KMeans {
   public samples: number[][];
   public ncluster: number;
 
-  constructor(samples: number[][]) {
+  constructor(samples: number[][], ncluster = 1) {
     this.samples = samples;
-    this.ncluster = 1;
+    this.ncluster = ncluster;
   }
 
   public run(): {

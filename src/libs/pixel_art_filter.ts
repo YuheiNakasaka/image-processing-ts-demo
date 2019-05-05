@@ -1,20 +1,43 @@
 import KMeans from "@/libs/k_means";
 class PixelArtFilter {
   public kernelSize: number;
+  public colorSize: number;
   public features: number[][];
 
-  constructor(kernelSize = 3) {
+  constructor(kernelSize = 3, colorSize = 4) {
     this.kernelSize = kernelSize;
+    this.colorSize = colorSize;
     this.features = [];
-
-    const kmeans = new KMeans([[1, 2, 3], [10, -2, 3], [5, 4, 2], [3, 1, 7]]);
-    const resp = kmeans.run();
-    console.log(resp);
   }
 
-  apply(imgData: ImageData, imgWidth: number, imgHeight: number): ImageData {
-    this.getFeatures(imgData, imgWidth, imgHeight);
-    return imgData;
+  apply(imgData: ImageData): ImageData {
+    const canvas = document.createElement("canvas");
+    const context = canvas.getContext("2d");
+    if (!context) return imgData;
+    let resultImageData = context.createImageData(imgData.width, imgData.height);
+
+    this.getFeatures(imgData, imgData.width, imgData.height);
+    const kmeans = new KMeans(this.features, this.colorSize);
+    const resp = kmeans.run();
+    const vq = kmeans.quantize(this.features, resp.centroids, resp.code);
+
+    let vqIdx = 0;
+    for (let y = 0; y < imgData.height; y += this.kernelSize) {
+      for (let x = 0; x < imgData.width; x += this.kernelSize) {
+        for (let i = 0; i < this.kernelSize; i++) {
+          for (let j = 0; j < this.kernelSize; j++) {
+            const idx = ((y + i) * imgData.width + (x + j)) * 4;
+            resultImageData.data[idx] = vq[vqIdx][0];
+            resultImageData.data[idx + 1] = vq[vqIdx][1];
+            resultImageData.data[idx + 2] = vq[vqIdx][2];
+            resultImageData.data[idx + 3] = 255;
+          }
+        }
+        vqIdx++;
+      }
+    }
+
+    return resultImageData;
   }
 
   private getFeatures(imgData: ImageData, imgWidth: number, imgHeight: number) {
