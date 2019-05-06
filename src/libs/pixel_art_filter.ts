@@ -42,7 +42,7 @@ class PixelArtFilter {
 
   private getFeatures(imgData: ImageData, imgWidth: number, imgHeight: number) {
     for (let y = 0; y < imgHeight; y += this.kernelSize) {
-      for (let x = 0; x < imgHeight; x += this.kernelSize) {
+      for (let x = 0; x < imgWidth; x += this.kernelSize) {
         let rSum = 0;
         let gSum = 0;
         let bSum = 0;
