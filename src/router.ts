@@ -10,6 +10,7 @@ import Sharping from "@/views/Sharping.vue";
 import Bilateral from "@/views/Bilateral.vue";
 import Mosaic from "@/views/Mosaic.vue";
 import PixelArt from "@/views/PixelArt.vue";
+import Glitch from "@/views/Glitch.vue";
 
 Vue.use(Router);
 
@@ -66,6 +67,11 @@ export default new Router({
           path: "/pixel-art",
           name: "pixel-art",
           component: PixelArt
+        },
+        {
+          path: "/glitch",
+          name: "glitch",
+          component: Glitch
         }
       ]
     }
